@@ -5,7 +5,7 @@ using UnityEngine;
 public class Health : MonoBehaviour {
 
     public int initHealth;
-    public int currentHealth;
+    public static int currentHealth;
 	// Use this for initialization
 	void Start () {
         currentHealth = initHealth;
@@ -16,7 +16,7 @@ public class Health : MonoBehaviour {
 		
 	}
 
-    public void reduceHealth()
+    public static void ReduceHealth()
     {
         if(currentHealth == 0)
         {

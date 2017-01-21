@@ -5,7 +5,6 @@ using UnityEngine;
 public class ManState : MonoBehaviour {
 
     public static AudienceState state;
-    public Health playerHealth;
     public bool isSlaped;
     private Animator anim;
 
@@ -17,6 +16,8 @@ public class ManState : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log(state);
+
 
         switch (state)
         {
@@ -26,9 +27,13 @@ public class ManState : MonoBehaviour {
             case AudienceState.Wave:
                 break;
             case AudienceState.Sleep:
-                
-                break;
+				if (isSlaped) {
+				}
+				break;
             case AudienceState.Ready:
+				if (isSlaped) {
+					state = AudienceState.Idle;
+				}
                 break;
         }
 	}
@@ -37,38 +42,24 @@ public class ManState : MonoBehaviour {
     {
         if(collision.gameObject.layer == 10)
         {
-            if(state == AudienceState.Idle || state == AudienceState.Ready)
-            {
-                state = AudienceState.Wave;
-                Debug.Log(state);
-            }
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 9 && state == AudienceState.Sleep)
-        {
-            Debug.Log("can be slaped");
-            if (isSlaped)
-            {
-                state = AudienceState.Ready;
-                Debug.Log(state);
-            }
-        }
-    }
+			if (state == AudienceState.Ready) {
+				Health.ReduceHealth();
+				state = AudienceState.Idle;
+			}
+			else {
+				state = AudienceState.Wave;
+			}
+		}
+		else if (collision.gameObject.layer == 9 && state == AudienceState.Sleep) {
+			state = AudienceState.Ready;
+		}
+	}
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.gameObject.layer == 10 && state == AudienceState.Wave)
         {
             state = AudienceState.Idle;
-            Debug.Log(state);
-        }
-        if(collision.gameObject.layer == 9 && state == AudienceState.Sleep)
-        {
-            Debug.Log("damage");
-            playerHealth.reduceHealth();
         }
     }
 
