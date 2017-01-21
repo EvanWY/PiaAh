@@ -40,6 +40,8 @@ public class LineWave : MonoBehaviour {
 			transform.Translate(moveDirection * Time.deltaTime * speed);
 			yield return 0;
 		}
-		transform.position = initPosition;
+
+		//transform.position = initPosition;
+		Destroy(gameObject);
 	}
 }

@@ -15,6 +15,7 @@ public class MusicSchedule : MonoBehaviour {
 	public AudioClip playerDrumHeavy;
 
 	public LineWave wave;
+	public LineWave currWave;
 
 	public static Dictionary<GameObject, bool> dictAudienceInRange = new Dictionary<GameObject, bool>();
 
@@ -29,6 +30,10 @@ public class MusicSchedule : MonoBehaviour {
 	void Start () {
 		startTime = Time.time + startDelay;
 		bgm.Play();
+		wave.gameObject.SetActive(false);
+		currWave = Instantiate(wave.gameObject).GetComponent<LineWave>();
+		currWave.gameObject.SetActive(true);
+		currWave.isTriggered = true;
 
 		beatDelta = 60f / (BPM * 4);
 	}
@@ -86,15 +91,24 @@ public class MusicSchedule : MonoBehaviour {
 
 
 					if (strIdx == 15) {
-						wave.transform.Find("Front").gameObject.SetActive(true);
-						wave.transform.Find("Wave").gameObject.SetActive(true);
-						wave.transform.Find("Prepare").gameObject.SetActive(false);
+						currWave = Instantiate(wave.gameObject).GetComponent<LineWave>();
+						currWave.gameObject.SetActive(true);
+
+						currWave.isTriggered = true;
+						currWave.transform.Find("Front").gameObject.SetActive(true);
+						currWave.transform.Find("Wave").gameObject.SetActive(true);
+						currWave.transform.Find("Prepare").gameObject.SetActive(false);
 					}
 					else if (strIdx == 31) {
 						dictAudienceInRange.Clear();
-						wave.transform.Find("Front").gameObject.SetActive(false);
-						wave.transform.Find("Wave").gameObject.SetActive(false);
-						wave.transform.Find("Prepare").gameObject.SetActive(true);
+						currWave = Instantiate(wave.gameObject).GetComponent<LineWave>();
+						currWave.gameObject.SetActive(true);
+
+
+						currWave.isTriggered = true;
+						currWave.transform.Find("Front").gameObject.SetActive(false);
+						currWave.transform.Find("Wave").gameObject.SetActive(false);
+						currWave.transform.Find("Prepare").gameObject.SetActive(true);
 					}
 				}
 			}

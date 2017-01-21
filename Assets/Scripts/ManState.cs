@@ -10,7 +10,7 @@ public class ManState : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        state = AudienceState.Sleep;
+        state = AudienceState.Idle;
         anim = transform.GetComponent<Animator>();
 	}
 	
