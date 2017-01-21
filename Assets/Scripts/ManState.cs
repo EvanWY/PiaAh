@@ -5,10 +5,12 @@ using UnityEngine;
 public class ManState : MonoBehaviour {
 
     public static AudienceState state;
+    public bool isSlaped;
     private Animator anim;
+
 	// Use this for initialization
 	void Start () {
-        state = AudienceState.Idle;
+        state = AudienceState.Sleep;
         anim = transform.GetComponent<Animator>();
 	}
 	
@@ -25,22 +27,47 @@ public class ManState : MonoBehaviour {
             case AudienceState.Sleep:
                 
                 break;
+            case AudienceState.Ready:
+                break;
         }
 	}
 
-    public void SetToIdle()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        state = AudienceState.Idle;
+        if(collision.gameObject.layer == 10)
+        {
+            if(state == AudienceState.Idle || state == AudienceState.Ready)
+            {
+                state = AudienceState.Wave;
+                Debug.Log(state);
+            }
+        }
     }
 
-    public void SetToSleep()
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        state = AudienceState.Sleep;
+        if (collision.gameObject.layer == 9 && state == AudienceState.Sleep)
+        {
+            Debug.Log("can be slaped");
+            if (isSlaped)
+            {
+                state = AudienceState.Ready;
+                Debug.Log(state);
+            }
+        }
     }
 
-    public void SetToWave()
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        state = AudienceState.Wave;
+        if(collision.gameObject.layer == 10 && state == AudienceState.Wave)
+        {
+            state = AudienceState.Idle;
+            Debug.Log(state);
+        }
+        if(collision.gameObject.layer == 9 && state == AudienceState.Sleep)
+        {
+            Debug.Log("damage");
+        }
     }
 
     public enum AudienceState
@@ -48,5 +75,6 @@ public class ManState : MonoBehaviour {
         Idle,
         Wave,
         Sleep,
+        Ready,
     }
 }
