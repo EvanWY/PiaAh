@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ManState : MonoBehaviour {
 
-    public static AudienceState state;
+    public AudienceState state, lastFrameState, nextState;
     public bool isSlaped;
     private Animator anim;
 
@@ -16,31 +16,43 @@ public class ManState : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log(state);
+		//Debug.Log(state);
+		nextState = state;
 
-
-        switch (state)
+		switch (state)
         {
             case AudienceState.Idle:
-
+				if (lastFrameState != state) {
+					GetComponent<Animator>().SetTrigger("idle");
+				}
                 break;
             case AudienceState.Wave:
-                break;
+				if (lastFrameState != state) {
+					GetComponent<Animator>().SetTrigger("wave");
+				}
+				break;
             case AudienceState.Sleep:
+				if (lastFrameState != state) {
+					GetComponent<Animator>().SetTrigger("sleep");
+				}
 				if (isSlaped) {
 				}
 				break;
             case AudienceState.Ready:
 				if (isSlaped) {
-					state = AudienceState.Idle;
+					nextState = AudienceState.Idle;
 				}
                 break;
         }
+
+		lastFrameState = state;
+		state = nextState;
+		isSlaped = false;
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == 10)
+        if (collision.gameObject.layer == 10)
         {
 			if (state == AudienceState.Ready) {
 				Health.ReduceHealth();
@@ -53,6 +65,12 @@ public class ManState : MonoBehaviour {
 		else if (collision.gameObject.layer == 9 && state == AudienceState.Sleep) {
 			state = AudienceState.Ready;
 		}
+
+		if (collision.gameObject.layer == 11) {
+			MusicSchedule.dictAudienceInRange[gameObject] = true;
+			//Debug.Log("11233");
+		}
+
 	}
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -60,8 +78,14 @@ public class ManState : MonoBehaviour {
         if(collision.gameObject.layer == 10 && state == AudienceState.Wave)
         {
             state = AudienceState.Idle;
-        }
-    }
+		}
+
+		if (collision.gameObject.layer == 11) {
+			if (MusicSchedule.dictAudienceInRange.ContainsKey(gameObject))
+				MusicSchedule.dictAudienceInRange.Remove(gameObject);
+			//Debug.Log("3333");
+		}
+	}
 
     public enum AudienceState
     {

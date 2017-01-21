@@ -14,6 +14,10 @@ public class MusicSchedule : MonoBehaviour {
 	public AudioClip playerDrumLight;
 	public AudioClip playerDrumHeavy;
 
+	public LineWave wave;
+
+	public static Dictionary<GameObject, bool> dictAudienceInRange = new Dictionary<GameObject, bool>();
+
 
 	// "1000100010001000"
 	public string[] cfgStringArr;
@@ -30,7 +34,7 @@ public class MusicSchedule : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	float lastFrameTime;
+	float lastFrameTime = -10000;
 	void Update () {
 		var currTime = Time.time - startTime;
 		Debug.Log(currTime);
@@ -45,21 +49,52 @@ public class MusicSchedule : MonoBehaviour {
 				//Debug.Log(currCfgNum + " " + strIdx);
 
 				if (currCfgNum < cfgStringArr.Length) {
-					if (strIdx < 16) { // demo round
-						var cfgString = cfgStringArr[currCfgNum];
-						var cfg = cfgString[strIdx];
+					var cfgString = cfgStringArr[currCfgNum];
+					var cfg = cfgString[strIdx % 16];
 
+
+					if (strIdx < 16) { // demo round
 						switch (cfg) {
-							case '1':
-								source.PlayOneShot(demoDrumLight);
+							case '1': {
+									List<GameObject> goArr = new List<GameObject>(dictAudienceInRange.Keys);
+									if (goArr != null && goArr.Count != 0) {
+										var go = goArr[Random.Range(0, goArr.Count - 1)];
+										go.GetComponent<ManState>().state = ManState.AudienceState.Sleep;
+									}
+									source.PlayOneShot(demoDrumLight);
+								}
 								break;
-							case '2':
-								source.PlayOneShot(drmoDrumHeavy);
+							case '2':{
+									List<GameObject> goArr = new List<GameObject>(dictAudienceInRange.Keys);
+									if (goArr != null && goArr.Count != 0) {
+										var go = goArr[Random.Range(0, goArr.Count - 1)];
+										go.GetComponent<ManState>().state = ManState.AudienceState.Sleep;
+									}
+									source.PlayOneShot(drmoDrumHeavy);
+								}
 								break;
 						}
 					}
 					else { // player round
+						switch (cfg) {
+							case '1':
+								break;
+							case '2':
+								break;
+						}
+					}
 
+
+					if (strIdx == 15) {
+						wave.transform.Find("Front").gameObject.SetActive(true);
+						wave.transform.Find("Wave").gameObject.SetActive(true);
+						wave.transform.Find("Prepare").gameObject.SetActive(false);
+					}
+					else if (strIdx == 31) {
+						dictAudienceInRange.Clear();
+						wave.transform.Find("Front").gameObject.SetActive(false);
+						wave.transform.Find("Wave").gameObject.SetActive(false);
+						wave.transform.Find("Prepare").gameObject.SetActive(true);
 					}
 				}
 			}
