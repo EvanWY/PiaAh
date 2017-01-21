@@ -5,6 +5,7 @@ using UnityEngine;
 public class ManState : MonoBehaviour {
 
     public static AudienceState state;
+    public Health playerHealth;
     public bool isSlaped;
     private Animator anim;
 
@@ -67,6 +68,7 @@ public class ManState : MonoBehaviour {
         if(collision.gameObject.layer == 9 && state == AudienceState.Sleep)
         {
             Debug.Log("damage");
+            playerHealth.reduceHealth();
         }
     }
 
