@@ -23,7 +23,10 @@ public class ManState : MonoBehaviour {
         {
             case AudienceState.Idle:
 				if (lastFrameState != state) {
-					GetComponent<Animator>().SetTrigger("idle");
+					if (lastFrameState == AudienceState.Ready)
+						GetComponent<Animator>().SetTrigger("wake");
+					else
+						GetComponent<Animator>().SetTrigger("idle");
 				}
                 break;
             case AudienceState.Wave:
@@ -93,5 +96,6 @@ public class ManState : MonoBehaviour {
         Wave,
         Sleep,
         Ready,
+
     }
 }
