@@ -49,7 +49,7 @@ public class MusicSchedule : MonoBehaviour {
 	float lastFrameTime = -10000;
 	void Update () {
 		var currTime = Time.time - startTime;
-		Debug.Log(currTime);
+		//Debug.Log(currTime);
 		if (currTime >= 0) {
 			int currBeatNum = Mathf.FloorToInt(currTime / beatDelta);
 			int lastFrameBeatNum = Mathf.FloorToInt(lastFrameTime / beatDelta);

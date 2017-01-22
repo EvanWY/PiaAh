@@ -7,7 +7,7 @@ public class LayerAdjuster : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		foreach (var rnd in gameObject.GetComponentsInChildren<SpriteRenderer>()) {
-			rnd.sortingOrder += 1000 - Mathf.RoundToInt(100 * (transform.position.y + 10));
+			rnd.sortingOrder += 10000 - Mathf.RoundToInt(1000 * (transform.position.y + 10));
 		}
 	}
 	

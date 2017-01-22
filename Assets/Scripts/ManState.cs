@@ -23,10 +23,10 @@ public class ManState : MonoBehaviour {
         {
             case AudienceState.Idle:
 				if (lastFrameState != state) {
-					if (lastFrameState == AudienceState.Slap)
-						GetComponent<Animator>().SetTrigger("slap");
-					else
+					if (lastFrameState != AudienceState.Slap && lastFrameState != AudienceState.Miss) {
 						GetComponent<Animator>().SetTrigger("idle");
+						//Debug.Log("looo");
+					}
 				}
                 break;
             case AudienceState.Wave:
@@ -47,9 +47,14 @@ public class ManState : MonoBehaviour {
 				}
                 break;
 			case AudienceState.Slap:
+				GetComponent<Animator>().SetTrigger("slap");
 				nextState = AudienceState.Idle;
 				break;
-        }
+			case AudienceState.Miss:
+				GetComponent<Animator>().SetTrigger("miss");
+				nextState = AudienceState.Idle;
+				break;
+		}
 
 		lastFrameState = state;
 		state = nextState;
@@ -62,7 +67,7 @@ public class ManState : MonoBehaviour {
         {
 			if (state == AudienceState.Ready) {
 				//Health.ReduceHealth();
-				state = AudienceState.Idle;
+				state = AudienceState.Miss;
 			}
 			else {
 				state = AudienceState.Wave;
@@ -95,6 +100,7 @@ public class ManState : MonoBehaviour {
 
     public enum AudienceState
     {
+		Miss,
         Idle,
         Wave,
         Sleep,
