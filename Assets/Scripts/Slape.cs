@@ -29,6 +29,8 @@ public class Slape : MonoBehaviour {
                         {
                             man.isSlaped = true;
 							MusicSchedule.PlayPlayerDrum();
+                            Score.AddScore();
+                            Debug.Log(Score.currentScore);
 						}
                     }
                 }
@@ -52,6 +54,7 @@ public class Slape : MonoBehaviour {
                             {
                                 man.isSlaped = true;
                                 MusicSchedule.PlayPlayerDrum();
+                                Score.AddScore();
                             }
                         }
                     }

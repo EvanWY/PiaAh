@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MusicSchedule : MonoBehaviour {
 
+    public GameEnd ge;
 	public float BPM;
 	public float startDelay;
 	public AudioSource bgm;
@@ -49,6 +50,10 @@ public class MusicSchedule : MonoBehaviour {
 	float lastFrameTime = -10000;
 	void Update () {
 		var currTime = Time.time - startTime;
+        if( Time.time - startTime > 110)
+        {
+            ge.enabled = true;
+        }
 		//Debug.Log(currTime);
 		if (currTime >= 0) {
 			int currBeatNum = Mathf.FloorToInt(currTime / beatDelta);
