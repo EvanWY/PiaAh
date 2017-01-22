@@ -5,24 +5,17 @@ using UnityEngine;
 
 public class GameEnd : MonoBehaviour {
 
-    public GameObject endingPanel;
-    public Text finalScore;
 
-    public Text perfectText;
-    public Text loseText;
+    public GameObject gameOverPanel;
+    public Text score;
+    public Sprite[] results;
+    private int finalScore;
 	// Use this for initialization
+
 	void Start () {
+        finalScore = Score.currentScore;
+        score.text = finalScore.ToString();
 
-        endingPanel.SetActive(true);
-        finalScore.text = Score.currentScore.ToString();
-
-        //if (Health.currentHealth <= 0)
-        //{
-        //    loseText.enabled = true;
-        //}
-        //else
-        //{
-        //    perfectText.enabled = true;
-        //}
+        if()
 	}
 }

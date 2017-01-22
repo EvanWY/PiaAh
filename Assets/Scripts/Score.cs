@@ -5,8 +5,9 @@ using UnityEngine;
 public class Score : MonoBehaviour {
 
     public static int currentScore;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+
+    void Start () {
         currentScore = 0;
 	}
 
