@@ -5,24 +5,33 @@ using UnityEngine;
 
 public class GameEnd : MonoBehaviour {
 
-    public GameObject endingPanel;
-    public Text finalScore;
 
-    public Text perfectText;
-    public Text loseText;
+    public GameObject gameOverPanel;
+    public Text score;
+    public Sprite[] results;
+    public int threshold;
+    private int finalScore;
+    private int totalMiss;
+    private Image im;
 	// Use this for initialization
+
 	void Start () {
+        im = GetComponent<Image>();
+        finalScore = Score.currentScore;
+        score.text = finalScore.ToString();
+        totalMiss = Health.missNum;
 
-        endingPanel.SetActive(true);
-        finalScore.text = Score.currentScore.ToString();
-
-        //if (Health.currentHealth <= 0)
-        //{
-        //    loseText.enabled = true;
-        //}
-        //else
-        //{
-        //    perfectText.enabled = true;
-        //}
+        if( totalMiss == 0)
+        {
+            im.sprite = results[0];
+        }
+        if( 0<totalMiss && totalMiss < threshold)
+        {
+            im.sprite = results[1];
+        }
+        if( threshold < totalMiss)
+        {
+            im.sprite = results[2];
+        }
 	}
 }
