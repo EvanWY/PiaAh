@@ -16,13 +16,13 @@ public class GameEnd : MonoBehaviour {
         endingPanel.SetActive(true);
         finalScore.text = Score.currentScore.ToString();
 
-        if (Health.currentHealth <= 0)
-        {
-            loseText.enabled = true;
-        }
-        else
-        {
-            perfectText.enabled = true;
-        }
+        //if (Health.currentHealth <= 0)
+        //{
+        //    loseText.enabled = true;
+        //}
+        //else
+        //{
+        //    perfectText.enabled = true;
+        //}
 	}
 }

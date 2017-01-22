@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Health : MonoBehaviour {
 
-    public int initHealth;
-    public static int currentHealth;
+    //public int initHealth;
+    //public static int currentHealth;
 	// Use this for initialization
 	void Start () {
-        currentHealth = initHealth;
+        //currentHealth = initHealth;
 	}
 	
 	// Update is called once per frame
@@ -16,16 +16,16 @@ public class Health : MonoBehaviour {
 		
 	}
 
-    public static void ReduceHealth()
-    {
-        if(currentHealth == 0)
-        {
-            Debug.Log("game over");
-        }
-        if(currentHealth > 0)
-        {
-            currentHealth--;
-            Debug.Log(currentHealth);
-        }
-    }
+    //public static void ReduceHealth()
+    //{
+    //    if(currentHealth == 0)
+    //    {
+    //        //Debug.Log("game over");
+    //    }
+    //    if(currentHealth > 0)
+    //    {
+    //        currentHealth--;
+    //        //Debug.Log(currentHealth);
+    //    }
+    //}
 }

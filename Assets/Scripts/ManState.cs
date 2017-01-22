@@ -61,7 +61,7 @@ public class ManState : MonoBehaviour {
         if (collision.gameObject.layer == 10)
         {
 			if (state == AudienceState.Ready) {
-				Health.ReduceHealth();
+				//Health.ReduceHealth();
 				state = AudienceState.Idle;
 			}
 			else {

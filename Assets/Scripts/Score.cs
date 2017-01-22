@@ -12,9 +12,6 @@ public class Score : MonoBehaviour {
 
     public static void AddScore()
     {
-        if(Health.currentHealth > 0)
-        {
-            currentScore += 10;
-        }
+        currentScore += 10; 
     }
 }
