@@ -11,7 +11,8 @@ public class GameEnd : MonoBehaviour {
     public Image perfect;
     public Image cool;
     public Image pia;
-    public int threshold;
+    public int threshold1;
+    public int threshold2;
     private int finalScore;
     private int totalMiss;
     //private Image im;
@@ -27,18 +28,18 @@ public class GameEnd : MonoBehaviour {
         Score.currentScore = 0;
         Health.missNum = 0;
 
-        if( totalMiss == 0)
+        if( 0 <= totalMiss && totalMiss <= threshold1)
         {
             cool.enabled = false;
             pia.enabled = false;
         }
-        if( 0<totalMiss && totalMiss < threshold)
+        if(  threshold1 < totalMiss && totalMiss <= threshold2)
         {
             //im.sprite = cool;
             perfect.enabled = false;
             pia.enabled = false;
         }
-        if( threshold < totalMiss)
+        if( threshold2 < totalMiss)
         {
             //im.sprite = pia;
             perfect.enabled = false;
