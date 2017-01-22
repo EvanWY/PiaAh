@@ -26,6 +26,8 @@ public class MusicSchedule : MonoBehaviour {
 	float startTime;
 	float beatDelta;
 
+
+	static MusicSchedule Instance= null;
 	// Use this for initialization
 	void Start () {
 		startTime = Time.time + startDelay;
@@ -36,6 +38,11 @@ public class MusicSchedule : MonoBehaviour {
 		currWave.isTriggered = true;
 
 		beatDelta = 60f / (BPM * 4);
+		Instance = this;
+	}
+
+	public static void PlayPlayerDrum() {
+		Instance.source.PlayOneShot(Instance.playerDrumLight);
 	}
 
 	// Update is called once per frame

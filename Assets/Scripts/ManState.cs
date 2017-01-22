@@ -23,8 +23,8 @@ public class ManState : MonoBehaviour {
         {
             case AudienceState.Idle:
 				if (lastFrameState != state) {
-					if (lastFrameState == AudienceState.Ready)
-						GetComponent<Animator>().SetTrigger("wake");
+					if (lastFrameState == AudienceState.Slap)
+						GetComponent<Animator>().SetTrigger("slap");
 					else
 						GetComponent<Animator>().SetTrigger("idle");
 				}
@@ -43,9 +43,12 @@ public class ManState : MonoBehaviour {
 				break;
             case AudienceState.Ready:
 				if (isSlaped) {
-					nextState = AudienceState.Idle;
+					nextState = AudienceState.Slap;
 				}
                 break;
+			case AudienceState.Slap:
+				nextState = AudienceState.Idle;
+				break;
         }
 
 		lastFrameState = state;
@@ -96,6 +99,7 @@ public class ManState : MonoBehaviour {
         Wave,
         Sleep,
         Ready,
+		Slap,
 
     }
 }

@@ -28,7 +28,8 @@ public class Slape : MonoBehaviour {
                         if (man.state == ManState.AudienceState.Ready)
                         {
                             man.isSlaped = true;
-                        }
+							MusicSchedule.PlayPlayerDrum();
+						}
                     }
                 }
             }
